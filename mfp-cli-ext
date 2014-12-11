@@ -10,11 +10,12 @@ var nopt = require('nopt');
 var path = require('path');
 
 var pkg = require('./package.json');
+
 var mfpcliext = {};
 
-mfpcliext.XCODE_LOCATION = "/Applications/XCode.app"
-mfpcliext.CLI_LOCATION = "/Applications/IBM/MobileFirst-CLI/mfp"
-mfpcliext.SERVER_LOCATION = "~/.ibm/mobilefirst/6.3.0/server/"
+mfpcliext.XCODE_LOCATION = "/Applications/XCode.app";
+mfpcliext.CLI_LOCATION = "/Applications/IBM/MobileFirst-CLI/mfp";
+mfpcliext.SERVER_LOCATION = "~/.ibm/mobilefirst/6.3.0/server/";
 
 var opts = nopt({
     debug: Boolean,
@@ -27,9 +28,9 @@ var opts = nopt({
 if(opts.debug) {
     log.level = 'silly';
 } else if(opts.verbose) {
-    log.level = 'verbose'
+    log.level = 'verbose';
 } else {
-    log.level = 'warn'
+    log.level = 'warn';
 }
 
 log.heading = pkg.name;
