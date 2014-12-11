@@ -39,6 +39,8 @@ if (mfpcliext.argv[0]) {
     mfpcliext.action = 'help';
 }
 
+mfpcliext.action = mfpcliext.action.toLowerCase();
+
 log.silly("Action is: " + mfpcliext.action);
 
 if (mfpcliext.action === 'help') {
