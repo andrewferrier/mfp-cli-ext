@@ -4,8 +4,13 @@
 
 var nopt = require('nopt');
 var log = require('npmlog');
+var child_process = require('child_process')
 var pkg = require('./package.json');
 var mfpcliext = {};
+
+mfpcliext.XCODE_LOCATION = "/Applications/XCode.app"
+mfpcliext.CLI_LOCATION = "/Applications/IBM/MobileFirst-CLI/mfp"
+mfpcliext.SERVER_LOCATION = "~/.ibm/mobilefirst/6.3.0/server/"
 
 var opts = nopt({
     debug: Boolean,
@@ -37,6 +42,12 @@ log.silly("Action is: " + mfpcliext.action);
 
 if (mfpcliext.action === 'help') {
     console.log("Help!");
+} else if(mfpcliext.action === 'native-ide') {
+    xcode = child_process.spawn('open', ['-a', mfpcliext.XCODE_LOCATION]);
+    var output = "";
+    xcode.on('close', function(code) {
+        console.log('code was ' + code);
+    });
 } else {
     log.error("Unknown command");
 }
