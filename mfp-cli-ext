@@ -3,9 +3,12 @@
 // * Make it fail with invalid params
 // Get a good gitignore in place
 
-var nopt = require('nopt');
+var child_process = require('child_process');
+var fs = require('fs');
 var log = require('npmlog');
-var child_process = require('child_process')
+var nopt = require('nopt');
+var path = require('path');
+
 var pkg = require('./package.json');
 var mfpcliext = {};
 
@@ -43,14 +46,31 @@ mfpcliext.action = mfpcliext.action.toLowerCase();
 
 log.silly("Action is: " + mfpcliext.action);
 
+var findMfpApp = function() {
+    var pathSoFar = process.cwd();
+
+    while(!fs.existsSync(path.join(pathSoFar, 'application-descriptor.xml'))) {
+        var newPath = path.dirname(pathSoFar);
+        if(newPath === pathSoFar) {
+            pathSoFar = null;
+            break;
+        } else {
+            pathSoFar = newPath;
+        }
+    }
+
+    return pathSoFar;
+};
+
 if (mfpcliext.action === 'help') {
     console.log("Help!");
 } else if(mfpcliext.action === 'native-ide') {
-    xcode = child_process.spawn('open', ['-a', mfpcliext.XCODE_LOCATION]);
-    var output = "";
-    xcode.on('close', function(code) {
-        console.log('code was ' + code);
-    });
+    log.verbose("About to open native IDE");
+    appDir = findMfpApp();
+    if(appDir === null) {
+        log.error("Cannot find mfp application");
+    }
+    xcode = child_process.spawn('open', ['-a', mfpcliext.XCODE_LOCATION, path.join(appDir, mfpcliext.argv[0], "native")]);
 } else {
-    log.error("Unknown command");
+    log.warn("Unknown command");
 }
