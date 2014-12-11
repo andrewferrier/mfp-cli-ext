@@ -73,5 +73,5 @@ if (mfpcliext.action === 'help') {
     }
     xcode = child_process.spawn('open', ['-a', mfpcliext.XCODE_LOCATION, path.join(appDir, mfpcliext.argv[0], "native")]);
 } else {
-    log.warn("Unknown command");
+    mfp = child_process.spawn(mfpcliext.CLI_LOCATION, [mfpcliext.action].concat(mfpcliext.argv), { stdio: 'inherit' });
 }
