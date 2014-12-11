@@ -1,0 +1,12 @@
+{
+    "author": "Andrew Ferrier",
+    "bin": {
+        "mfp-cli-ext": "mfp-cli-ext"
+    },
+    "dependencies": {
+        "nopt": "~2.1.2",
+        "npmlog": "~0.0.6"
+    },
+    "description": "Unoffical Extensions for IBM MobileFirst Platform Command Line Interface (CLI)",
+    "name": "mfp-cli-ext"
+}
