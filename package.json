@@ -3,10 +3,23 @@
     "bin": {
         "mfp-cli-ext": "mfp-cli-ext"
     },
+    "bugs": {
+        "url": "https://github.com/andrewferrier/mfp-cli-ext/issues"
+    },
     "dependencies": {
         "nopt": "~2.1.2",
         "npmlog": "~0.0.6"
     },
     "description": "Unoffical Extensions for IBM MobileFirst Platform Command Line Interface (CLI)",
-    "name": "mfp-cli-ext"
+    "homepage": "https://github.com/andrewferrier/mfp-cli-ext",
+    "license": "MIT",
+    "name": "mfp-cli-ext",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/andrewferrier/mfp-cli-ext.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "version": "0.0.0"
 }
