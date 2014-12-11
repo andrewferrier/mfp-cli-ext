@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 // * Make it fail with invalid params
+// Get a good gitignore in place
 
 var nopt = require('nopt');
 var log = require('npmlog');
