@@ -63,7 +63,7 @@ var findMfpApp = function() {
 };
 
 if (mfpcliext.action === 'help-ext') {
-    console.log("Help!");
+    console.log("Help to come!. Type 'help' for the regular mfp utility.");
 } else if(mfpcliext.action === 'native-ide') {
     log.verbose("About to open native IDE");
     appDir = findMfpApp();
