@@ -18,10 +18,12 @@ mfpcliext.SERVER_LOCATION = "~/.ibm/mobilefirst/6.3.0/server/";
 
 var opts = nopt({
     debug: Boolean,
-    verbose: Boolean
+    verbose: Boolean,
+    help: Boolean
 }, {
     d: '--debug',
-    v: '--verbose'
+    v: '--verbose',
+    h: '--help',
 });
 
 if(opts.debug) {
@@ -42,11 +44,28 @@ if (mfpcliext.argv[0]) {
     mfpcliext.action = 'help-ext';
 }
 
-mfpcliext.action = mfpcliext.action.toLowerCase();
+if(opts.help) {
+    showHelp();
+} else {
+    mfpcliext.action = mfpcliext.action.toLowerCase();
 
-log.silly("Action is: " + mfpcliext.action);
+    log.silly("Action is: " + mfpcliext.action);
 
-var findMfpApp = function() {
+    if (mfpcliext.action === 'help-ext') {
+        showHelp();
+    } else if(mfpcliext.action === 'native-ide') {
+        log.verbose("About to open native IDE");
+        appDir = findMfpApp();
+        if(appDir === null) {
+            log.error("Cannot find mfp application");
+        }
+        xcode = child_process.spawn('open', ['-a', mfpcliext.XCODE_LOCATION, path.join(appDir, mfpcliext.argv[0], "native")]);
+    } else {
+        mfp = child_process.spawn(mfpcliext.CLI_LOCATION, [mfpcliext.action].concat(mfpcliext.argv), { stdio: 'inherit' });
+    }
+}
+
+function findMfpApp() {
     var pathSoFar = process.cwd();
 
     while(!fs.existsSync(path.join(pathSoFar, 'application-descriptor.xml'))) {
@@ -62,15 +81,11 @@ var findMfpApp = function() {
     return pathSoFar;
 };
 
-if (mfpcliext.action === 'help-ext') {
-    console.log("Help to come!. Type 'help' for the regular mfp utility.");
-} else if(mfpcliext.action === 'native-ide') {
-    log.verbose("About to open native IDE");
-    appDir = findMfpApp();
-    if(appDir === null) {
-        log.error("Cannot find mfp application");
-    }
-    xcode = child_process.spawn('open', ['-a', mfpcliext.XCODE_LOCATION, path.join(appDir, mfpcliext.argv[0], "native")]);
-} else {
-    mfp = child_process.spawn(mfpcliext.CLI_LOCATION, [mfpcliext.action].concat(mfpcliext.argv), { stdio: 'inherit' });
-}
+function showHelp() {
+    console.log("This is the mfp-cli-ext utility. It is an unofficial utility which builds " +
+                "on top of the mfp utility for the IBM MobileFirst Platform Foundation here: " +
+                "https://developer.ibm.com/mobilefirstplatform/install/#clui.\n\n" +
+                "Syntax: mfp-cli-ext command\n\n" +
+                "Valid commands are:\n\n" +
+                " * help-ext: Show this help");
+};
