@@ -4,6 +4,11 @@ Extensions for working with the [IBM MobileFirst Platform Foundation Command
 Line Interface](https://developer.ibm.com/mobilefirstplatform/install/#clui).
 Not official - there is no support or guarantee of anything.
 
+**DEPRECATED** - `mfp-cli-ext` should be considered deprecated, I will not be
+doing any further development work on it. Instead I suggest Karl Bishop's
+[mfpx project](https://github.com/kfbishop/mfpx). Over time, I will be looking
+to move all functionality currently in `mfp-cli-ext` to `mfpx`.
+
 # General Philosophy
 
 `mfp-cli-ext` builds on top of and enhances the standard mfp tool provided by
